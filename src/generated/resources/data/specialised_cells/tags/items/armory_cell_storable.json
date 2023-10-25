@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#forge:armors",
+    "#minecraft:swords",
+    "#forge:tools/shields",
+    "#forge:tools/bows",
+    "#forge:tools/crossbows",
+    "#forge:tools/tridents"
+  ]
+}
