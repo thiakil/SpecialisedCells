@@ -10,11 +10,13 @@ import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -50,7 +52,7 @@ public class ItemArmoryCell extends Item implements ISpecialisedCellType {
 
     @Override
     public boolean isAllowed(AEItemKey what) {
-        return false;
+        return what.isTagged(Tags.Items.ARMORS) || what.isTagged(ItemTags.SWORDS);
     }
 
     @Override
