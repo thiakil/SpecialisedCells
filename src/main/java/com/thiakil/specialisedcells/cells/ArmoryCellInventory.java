@@ -1,7 +1,6 @@
 package com.thiakil.specialisedcells.cells;
 
 import appeng.api.config.Actionable;
-import appeng.api.config.FuzzyMode;
 import appeng.api.config.IncludeExclude;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.AEItemKey;
@@ -9,7 +8,6 @@ import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.api.stacks.KeyCounter;
 import appeng.api.storage.cells.CellState;
-import appeng.api.storage.cells.IBasicCellItem;
 import appeng.api.storage.cells.ISaveProvider;
 import appeng.api.storage.cells.StorageCell;
 import appeng.api.upgrades.IUpgradeInventory;
@@ -41,7 +39,7 @@ public class ArmoryCellInventory implements StorageCell {
     private final ISaveProvider container;
     private IPartitionList partitionList;
     private IncludeExclude partitionListMode;
-    private short storedItems;
+    private short storedItemTypes;
     private long storedItemCount;
     private Object2LongMap<AEItemKey> storedAmounts;
     private final ItemStack i;
@@ -53,7 +51,8 @@ public class ArmoryCellInventory implements StorageCell {
         this.i = o;
 
         this.container = container;
-        this.storedItems = (short) getTag().getLongArray(STACK_AMOUNTS).length;
+        //todo store this count separately
+        this.storedItemTypes = (short) getTag().getLongArray(STACK_AMOUNTS).length;
         this.storedItemCount = getTag().getLong(ITEM_COUNT_TAG);
         this.storedAmounts = null;
 
@@ -155,7 +154,7 @@ public class ArmoryCellInventory implements StorageCell {
         }
 
         //todo change this to be by item id not key - see AEItemKey dropSecondary
-        this.storedItems = (short) this.storedAmounts.size();
+        this.storedItemTypes = (short) this.storedAmounts.size();
 
         this.storedItemCount = itemCount;
         if (itemCount == 0) {
@@ -169,7 +168,7 @@ public class ArmoryCellInventory implements StorageCell {
 
     protected void saveChanges() {
         // recalculate values
-        this.storedItems = (short) this.storedAmounts.size();
+        this.storedItemTypes = (short) this.storedAmounts.size();
         this.storedItemCount = 0;
         for (var storedAmount : this.storedAmounts.values()) {
             this.storedItemCount += storedAmount;
@@ -258,7 +257,7 @@ public class ArmoryCellInventory implements StorageCell {
     }
 
     public long getStoredItemTypes() {
-        return this.storedItems;
+        return this.storedItemTypes;
     }
 
     public long getRemainingItemTypes() {
