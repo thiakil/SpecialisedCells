@@ -7,9 +7,22 @@ import appeng.api.upgrades.UpgradeInventories;
 import appeng.items.contents.CellConfig;
 import appeng.util.ConfigInventory;
 import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
+import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
+import java.util.Optional;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ItemArmoryCell extends Item implements ISpecialisedCellType {
     public ItemArmoryCell() {
         super(new Properties());
@@ -57,5 +70,17 @@ public class ItemArmoryCell extends Item implements ISpecialisedCellType {
 
     public Object getPrimaryKey(AEItemKey what) {
         return what.getPrimaryKey();//drop nbt, consider only item type
+    }
+
+    public void appendHoverText(ItemStack stack,
+                                @Nullable Level level,
+                                List<Component> lines,
+                                TooltipFlag advancedTooltips) {
+        SpecialisedCellHandler.INSTANCE.addCellInformationToTooltip(stack, lines);
+    }
+
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        return SpecialisedCellHandler.INSTANCE.getTooltipImage(stack);
     }
 }
