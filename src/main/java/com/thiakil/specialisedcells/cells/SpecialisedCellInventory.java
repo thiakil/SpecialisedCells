@@ -1,6 +1,7 @@
 package com.thiakil.specialisedcells.cells;
 
 import appeng.api.config.Actionable;
+import appeng.api.config.FuzzyMode;
 import appeng.api.config.IncludeExclude;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.AEItemKey;
@@ -66,6 +67,7 @@ public class SpecialisedCellInventory implements StorageCell {
         boolean hasInverter = upgrades.isInstalled(AEItems.INVERTER_CARD);
 
         builder.addAll(config.keySet());
+        builder.fuzzyMode(FuzzyMode.IGNORE_ALL);//force fuzzy mode
 
         partitionListMode = (hasInverter ? IncludeExclude.BLACKLIST : IncludeExclude.WHITELIST);
         partitionList = builder.build();
