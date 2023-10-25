@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#forge:tools/fishing_rods",
+    "#minecraft:axes",
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:hoes",
+    "#forge:tools/paxels",
+    "#forge:tools/wrench",
+    "#forge:wrenches"
+  ]
+}

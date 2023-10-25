@@ -42,14 +42,14 @@ public class SpecialisedCells
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     //public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> ARMORY_CELL = ITEMS.register("armory_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.ARMORY_CELL_STORABLE) {
+    public static final RegistryObject<Item> ARMORY_CELL_1K = ITEMS.register("armory_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.ARMORY_CELL_STORABLE) {
     });
 
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> SPECIALISED_CELLS_TAB = CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ARMORY_CELL.get().getDefaultInstance())
+            .icon(() -> ARMORY_CELL_1K.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ARMORY_CELL.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(ARMORY_CELL_1K.get()); // Add the item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
     public SpecialisedCells()

@@ -2,6 +2,7 @@ package com.thiakil.specialisedcells.datagen;
 
 import com.thiakil.specialisedcells.SpecialisedCells;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -17,6 +18,7 @@ public class SCDataGenerator {
         PackOutput output = gen.getPackOutput();
         BlockTagsProvider blockTagsProvider = gen.addProvider(event.includeServer(), new SCBlockTagsProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
         gen.addProvider(event.includeServer(), new SCItemTagsGenerator(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
+        gen.addProvider(event.includeClient(), new SCLangProvider(output));
     }
 
 }
