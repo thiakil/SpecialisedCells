@@ -17,7 +17,6 @@ import appeng.core.definitions.AEItems;
 import appeng.items.contents.CellConfig;
 import appeng.util.ConfigInventory;
 import appeng.util.prioritylist.IPartitionList;
-import com.thiakil.specialisedcells.items.ItemArmoryCell;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
@@ -29,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
 
-public class ArmoryCellInventory implements StorageCell {
+public class SpecialisedCellInventory implements StorageCell {
     private static final int MAX_ITEM_TYPES = 63;
     private static final String ITEM_COUNT_TAG = "ic";
     private static final String STACK_KEYS = "keys";
@@ -42,16 +41,18 @@ public class ArmoryCellInventory implements StorageCell {
     private short storedItemTypes;
     private long storedItemCount;
     private Object2LongMap<AEItemKey> storedAmounts;
+    private final ISpecialisedCellType cellType;
     private final ItemStack i;
     private final long maxItemsPerType; // max items per type, basically infinite unless there is a distribution card.
     private final boolean hasVoidUpgrade;
     private boolean isPersisted = true;
 
-    private ArmoryCellInventory(ItemStack o, ISaveProvider container) {
+    private SpecialisedCellInventory(ISpecialisedCellType cellType, ItemStack o, ISaveProvider container) {
+        this.cellType = cellType;
         this.i = o;
 
         this.container = container;
-        //todo store this count separately
+        //todo store this count separately, when calculated by primary key
         this.storedItemTypes = (short) getTag().getLongArray(STACK_AMOUNTS).length;
         this.storedItemCount = getTag().getLong(ITEM_COUNT_TAG);
         this.storedAmounts = null;
@@ -103,15 +104,14 @@ public class ArmoryCellInventory implements StorageCell {
         return this.i.getOrCreateTag();
     }
 
-    public static ArmoryCellInventory createInventory(ItemStack o, ISaveProvider container) {
+    public static SpecialisedCellInventory createInventory(ItemStack o, ISaveProvider container) {
         Objects.requireNonNull(o, "Cannot create cell inventory for null itemstack");
 
-        if (!(o.getItem() instanceof ItemArmoryCell armoryCellItem)) {
+        if (!(o.getItem() instanceof ISpecialisedCellType cellType)) {
             return null;
         }
 
-        // The cell type's channel matches, so this cast is safe
-        return new ArmoryCellInventory(o, container);
+        return new SpecialisedCellInventory(cellType, o, container);
     }
 
     protected Object2LongMap<AEItemKey> getCellItems() {
@@ -218,19 +218,19 @@ public class ArmoryCellInventory implements StorageCell {
 
     @Override
     public double getIdleDrain() {
-        return 2;//64k std
+        return this.cellType.getIdleDrain();
     }
 
     public ConfigInventory getConfigInventory() {
-        return CellConfig.create(KEY_TYPE.filter(), this.i);
+        return this.cellType.getConfigInventory(this.i);
     }
 
     public IUpgradeInventory getUpgradesInventory() {
-        return UpgradeInventories.forItem(this.i, 3);
+        return this.cellType.getUpgrades(this.i);
     }
 
     public int getBytesPerType() {
-        return 32;//4k std cell
+        return this.cellType.getBytesPerType();
     }
 
     public boolean canHoldNewItem() {
@@ -241,15 +241,16 @@ public class ArmoryCellInventory implements StorageCell {
     }
 
     public long getTotalBytes() {
-        return 4 * 1024;//start with 4k
+        return this.cellType.getTotalBytes();
     }
 
     public long getFreeBytes() {
         return this.getTotalBytes() - this.getUsedBytes();
     }
 
+    //todo should this change when partitioned?
     public long getTotalItemTypes() {
-        return MAX_ITEM_TYPES;
+        return this.cellType.getTotalItemTypes();
     }
 
     public long getStoredItemCount() {
@@ -276,8 +277,8 @@ public class ArmoryCellInventory implements StorageCell {
         return remaining > 0 ? remaining : 0;
     }
 
-    private static int getAmountPerByte() {
-        return KEY_TYPE.getAmountPerByte() / 2;
+    private int getAmountPerByte() {
+        return this.cellType.getAmountPerByte();
     }
 
     public int getUnusedItemCount() {
@@ -314,10 +315,9 @@ public class ArmoryCellInventory implements StorageCell {
             return 0;
         }
 
-        //todo dont accept things we dont want
-        //if (this.cellType.isBlackListed(this.i, what)) {
-        //    return 0;
-        //}
+        if (!this.cellType.isAllowed(whatItem)) {
+            return 0;
+        }
 
         // Run regular insert logic and then apply void upgrade to the returned value.
         long inserted = innerInsert(whatItem, amount, mode, source);
@@ -385,5 +385,11 @@ public class ArmoryCellInventory implements StorageCell {
     @Override
     public Component getDescription() {
         return i.getHoverName();
+    }
+
+    //ensure we're picked over other equal prio inventories
+    @Override
+    public boolean isPreferredStorageFor(AEKey what, IActionSource source) {
+        return what instanceof AEItemKey itemKey && this.cellType.isAllowed(itemKey);
     }
 }
