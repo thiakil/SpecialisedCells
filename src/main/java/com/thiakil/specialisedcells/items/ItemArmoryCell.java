@@ -54,4 +54,8 @@ public class ItemArmoryCell extends Item implements ISpecialisedCellType {
     public ConfigInventory getConfigInventory(ItemStack is) {
         return CellConfig.create(AEKeyType.items().filter(), is);
     }
+
+    public Object getPrimaryKey(AEItemKey what) {
+        return what.getPrimaryKey();//drop nbt, consider only item type
+    }
 }

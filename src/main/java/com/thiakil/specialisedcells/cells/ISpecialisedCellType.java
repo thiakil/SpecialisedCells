@@ -25,4 +25,7 @@ public interface ISpecialisedCellType extends ICellWorkbenchItem {
     default void setFuzzyMode(ItemStack is, FuzzyMode fzMode) {
         //no-op
     }
+
+    /** @return the type identifier for this cell's "type" tracking */
+    Object getPrimaryKey(AEItemKey what);
 }

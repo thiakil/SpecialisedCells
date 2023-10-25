@@ -34,6 +34,7 @@ public class SpecialisedCellInventory implements StorageCell {
     private static final String ITEM_COUNT_TAG = "ic";
     private static final String STACK_KEYS = "keys";
     private static final String STACK_AMOUNTS = "amts";
+    private static final String STACK_PRIMARY_KEYS = "prikeys";
     private static final AEKeyType KEY_TYPE = AEKeyType.items();
 
     private final ISaveProvider container;
@@ -42,6 +43,7 @@ public class SpecialisedCellInventory implements StorageCell {
     private short storedItemTypes;
     private long storedItemCount;
     private Object2LongMap<AEItemKey> storedAmounts;
+    private Object2LongMap<Object> storedPrimaryKeys;
     private final ISpecialisedCellType cellType;
     private final ItemStack i;
     private final long maxItemsPerType; // max items per type, basically infinite unless there is a distribution card.
@@ -54,9 +56,10 @@ public class SpecialisedCellInventory implements StorageCell {
 
         this.container = container;
         //todo store this count separately, when calculated by primary key
-        this.storedItemTypes = (short) getTag().getLongArray(STACK_AMOUNTS).length;
+        this.storedItemTypes = getTag().getShort(STACK_PRIMARY_KEYS);
         this.storedItemCount = getTag().getLong(ITEM_COUNT_TAG);
         this.storedAmounts = null;
+        this.storedPrimaryKeys = null;
 
         // Updates the partition list and mode based on installed upgrades and the configured filter.
         var builder = IPartitionList.builder();
@@ -119,6 +122,7 @@ public class SpecialisedCellInventory implements StorageCell {
     protected Object2LongMap<AEItemKey> getCellItems() {
         if (this.storedAmounts == null) {
             this.storedAmounts = new Object2LongOpenHashMap<>();
+            this.storedPrimaryKeys = new Object2LongOpenHashMap<>();
             this.loadCellItems();
         }
 
@@ -147,16 +151,17 @@ public class SpecialisedCellInventory implements StorageCell {
             }
         }
 
+        this.storedItemTypes = (short) this.storedPrimaryKeys.size();
+
         if (keys.isEmpty()) {
             getTag().remove(STACK_KEYS);
             getTag().remove(STACK_AMOUNTS);
+            getTag().remove(STACK_PRIMARY_KEYS);
         } else {
             getTag().put(STACK_KEYS, keys);
             getTag().putLongArray(STACK_AMOUNTS, amounts.toArray(new long[0]));
+            getTag().putShort(STACK_PRIMARY_KEYS, this.storedItemTypes);
         }
-
-        //todo change this to be by item id not key - see AEItemKey dropSecondary
-        this.storedItemTypes = (short) this.storedAmounts.size();
 
         this.storedItemCount = itemCount;
         if (itemCount == 0) {
@@ -170,7 +175,7 @@ public class SpecialisedCellInventory implements StorageCell {
 
     protected void saveChanges() {
         // recalculate values
-        this.storedItemTypes = (short) this.storedAmounts.size();
+        this.storedItemTypes = (short) this.storedPrimaryKeys.size();
         this.storedItemCount = 0;
         for (var storedAmount : this.storedAmounts.values()) {
             this.storedItemCount += storedAmount;
@@ -203,6 +208,7 @@ public class SpecialisedCellInventory implements StorageCell {
                 corruptedTag = true;
             } else {
                 storedAmounts.put(key, amount);
+                addPrimaryKeyCount(key, amount);
             }
         }
 
@@ -353,10 +359,16 @@ public class SpecialisedCellInventory implements StorageCell {
 
         if (mode == Actionable.MODULATE) {
             getCellItems().put(what, currentAmount + amount);
+            addPrimaryKeyCount(what, amount);
             this.saveChanges();
         }
 
         return amount;
+    }
+
+    private void addPrimaryKeyCount(AEItemKey what, long amount) {
+        Object primaryKey = this.cellType.getPrimaryKey(what);
+        this.storedPrimaryKeys.put(primaryKey, this.storedPrimaryKeys.getLong(primaryKey) + amount);
     }
 
     @Override
@@ -367,6 +379,7 @@ public class SpecialisedCellInventory implements StorageCell {
             if (amount >= currentAmount) {
                 if (mode == Actionable.MODULATE) {
                     getCellItems().remove(what, currentAmount);
+                    addPrimaryKeyCount((AEItemKey) what, -currentAmount);
                     this.saveChanges();
                 }
 
@@ -374,6 +387,7 @@ public class SpecialisedCellInventory implements StorageCell {
             } else {
                 if (mode == Actionable.MODULATE) {
                     getCellItems().put((AEItemKey) what, currentAmount - amount);
+                    addPrimaryKeyCount((AEItemKey) what, -amount);
                     this.saveChanges();
                 }
 
