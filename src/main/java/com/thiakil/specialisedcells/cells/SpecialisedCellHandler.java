@@ -24,7 +24,7 @@ public class SpecialisedCellHandler implements ICellHandler {
 
     @Override
     public boolean isCell(ItemStack is) {
-        return BasicCellInventory.isCell(is);
+        return SpecialisedCellInventory.isCell(is);
     }
 
     @Override

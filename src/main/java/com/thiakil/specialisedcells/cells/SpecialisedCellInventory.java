@@ -408,4 +408,8 @@ public class SpecialisedCellInventory implements StorageCell {
     public boolean isPreferredStorageFor(AEKey what, IActionSource source) {
         return what instanceof AEItemKey itemKey && this.cellType.isAllowed(itemKey);
     }
+
+    public static boolean isCell(ItemStack input) {
+        return input.getItem() instanceof ISpecialisedCellType;
+    }
 }
