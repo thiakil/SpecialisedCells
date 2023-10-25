@@ -6,29 +6,21 @@ import appeng.api.upgrades.IUpgradeInventory;
 import appeng.api.upgrades.UpgradeInventories;
 import appeng.items.contents.CellConfig;
 import appeng.util.ConfigInventory;
-import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
-import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
-import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ItemArmoryCell extends ItemSpecialisedCell {
+public abstract class ItemTagBasedCell extends ItemSpecialisedCell {
+    protected final TagKey<Item> allowedTag;
 
-    public ItemArmoryCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes) {
+    public ItemTagBasedCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag) {
         super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes);
+        this.allowedTag = allowedTag;
     }
 
     @Override
@@ -47,7 +39,6 @@ public class ItemArmoryCell extends ItemSpecialisedCell {
 
     @Override
     public boolean isAllowed(AEItemKey what) {
-        return what.isTagged(Tags.Items.ARMORS) || what.isTagged(ItemTags.SWORDS);
+        return what.isTagged(this.allowedTag);
     }
-
 }
