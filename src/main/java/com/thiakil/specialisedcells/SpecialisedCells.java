@@ -5,7 +5,6 @@ import com.mojang.logging.LogUtils;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import com.thiakil.specialisedcells.items.ItemArmoryCell;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -43,7 +42,7 @@ public class SpecialisedCells
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     //public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> ARMORY_CELL = ITEMS.register("armory_cell", ItemArmoryCell::new);
+    public static final RegistryObject<Item> ARMORY_CELL = ITEMS.register("armory_cell", () -> new ItemArmoryCell(1.5, 32, 63, 4));
 
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)

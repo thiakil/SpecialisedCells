@@ -25,39 +25,10 @@ import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ItemArmoryCell extends Item implements ISpecialisedCellType {
-    public ItemArmoryCell() {
-        super(new Properties());
-    }
+public class ItemArmoryCell extends ItemSpecialisedCell {
 
-    @Override
-    public double getIdleDrain() {
-        return 2;//64k std
-    }
-
-    @Override
-    public int getBytesPerType() {
-        return 32;//4k std cell
-    }
-
-    @Override
-    public long getTotalItemTypes() {
-        return 63;//todo
-    }
-
-    @Override
-    public int getAmountPerByte() {
-        return AEKeyType.items().getAmountPerByte() / 2;
-    }
-
-    @Override
-    public boolean isAllowed(AEItemKey what) {
-        return what.isTagged(Tags.Items.ARMORS) || what.isTagged(ItemTags.SWORDS);
-    }
-
-    @Override
-    public long getTotalBytes() {
-        return 4 * 1024;//start with 4k
+    public ItemArmoryCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes) {
+        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes);
     }
 
     @Override
@@ -74,15 +45,9 @@ public class ItemArmoryCell extends Item implements ISpecialisedCellType {
         return what.getPrimaryKey();//drop nbt, consider only item type
     }
 
-    public void appendHoverText(ItemStack stack,
-                                @Nullable Level level,
-                                List<Component> lines,
-                                TooltipFlag advancedTooltips) {
-        SpecialisedCellHandler.INSTANCE.addCellInformationToTooltip(stack, lines);
+    @Override
+    public boolean isAllowed(AEItemKey what) {
+        return what.isTagged(Tags.Items.ARMORS) || what.isTagged(ItemTags.SWORDS);
     }
 
-    @Override
-    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        return SpecialisedCellHandler.INSTANCE.getTooltipImage(stack);
-    }
 }
