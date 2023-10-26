@@ -49,6 +49,15 @@ public class SCRecipeProvider extends RecipeProvider {
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_housing"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SCItems.ENCHANTED_BOOK_CELL_HOUSING.get())
+                .define('H', AE2_CELL_HOUSING)
+                .define('B', Items.BOOK)
+                .pattern(" B ")
+                .pattern("BHB")
+                .pattern(" B ")
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("enchanted_book_cell_housing"));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_1K.get())
                 .requires(SCItems.ARMORY_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_1K).get())
@@ -80,6 +89,22 @@ public class SCRecipeProvider extends RecipeProvider {
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_16K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_16k"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ENCHANTED_BOOK_CELL_1K.get())
+                .requires(SCItems.ENCHANTED_BOOK_CELL_HOUSING.get())
+                .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_1K).get())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("enchanted_book_cell_1k"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ENCHANTED_BOOK_CELL_4K.get())
+                .requires(SCItems.ENCHANTED_BOOK_CELL_HOUSING.get())
+                .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_4K).get())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("enchanted_book_cell_4k"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ENCHANTED_BOOK_CELL_16K.get())
+                .requires(SCItems.ENCHANTED_BOOK_CELL_HOUSING.get())
+                .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_16K).get())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("enchanted_book_cell_16k"));
     }
 
     static ResourceLocation id(String name) {
