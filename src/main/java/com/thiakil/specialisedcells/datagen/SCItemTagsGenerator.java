@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -28,13 +29,13 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
         super(pOutput, pLookupProvider, pBlockTags, SpecialisedCells.MODID, existingFileHelper);
     }
 
-    @Override
-    protected @Nullable Path getPath(ResourceLocation id) {
-        if (id.equals(TOOLS_PAXELS.location()) || id.equals(TOOLS_WRENCHES.location()) || id.equals(WRENCHES.location())) {
-            return null;//created only so they don't error, return null so they don't write empty files
-        }
-        return super.getPath(id);
-    }
+    //@Override
+    //protected @Nullable Path getPath(ResourceLocation id) {
+    //    if (id.equals(TOOLS_PAXELS.location()) || id.equals(TOOLS_WRENCHES.location()) || id.equals(WRENCHES.location())) {
+    //        return null;//created only so they don't error, return null so they don't write empty files
+    //    }
+    //    return super.getPath(id);
+    //}
 
     @SuppressWarnings("unchecked")
     @Override
@@ -51,7 +52,14 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                         Tags.Items.TOOLS_BOWS,
                         Tags.Items.TOOLS_CROSSBOWS,
                         Tags.Items.TOOLS_TRIDENTS
-                );
+                )
+                .add(
+                        Items.LEATHER_HORSE_ARMOR,
+                        Items.IRON_HORSE_ARMOR,
+                        Items.GOLDEN_HORSE_ARMOR,
+                        Items.DIAMOND_HORSE_ARMOR
+                )
+        ;
         tag(SCTags.TOOLS_CELL_STORABLE)
                 .addTags(
                         Tags.Items.TOOLS_FISHING_RODS,
@@ -62,6 +70,11 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                         TOOLS_PAXELS,
                         TOOLS_WRENCHES,
                         WRENCHES
+                )
+                .add(
+                        Items.CARROT_ON_A_STICK,
+                        Items.WARPED_FUNGUS_ON_A_STICK,
+                        Items.FLINT_AND_STEEL
                 );
     }
 }
