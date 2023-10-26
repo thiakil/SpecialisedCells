@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ae2:item/item_storage_cell_4k",
+    "layer1": "minecraft:item/golden_pickaxe"
+  }
+}
