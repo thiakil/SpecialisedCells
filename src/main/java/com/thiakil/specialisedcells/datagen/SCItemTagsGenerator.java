@@ -1,5 +1,6 @@
 package com.thiakil.specialisedcells.datagen;
 
+import appeng.api.ids.AEItemIds;
 import com.thiakil.specialisedcells.SCTags;
 import com.thiakil.specialisedcells.SpecialisedCells;
 import net.minecraft.core.HolderLookup;
@@ -7,43 +8,31 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 @ParametersAreNonnullByDefault
 public class SCItemTagsGenerator extends ItemTagsProvider {
-    private static final TagKey<Item> TOOLS_PAXELS = ItemTags.create(new ResourceLocation("forge", "tools/paxels"));
-    private static final TagKey<Item> TOOLS_WRENCHES = ItemTags.create(new ResourceLocation("forge", "tools/wrench"));
-    private static final TagKey<Item> WRENCHES = ItemTags.create(new ResourceLocation("forge", "wrenches"));
+    private static final ResourceLocation TOOLS_PAXELS = new ResourceLocation("forge", "tools/paxels");
+    private static final ResourceLocation TOOLS_WRENCHES = new ResourceLocation("forge", "tools/wrench");
+    private static final ResourceLocation WRENCHES = new ResourceLocation("forge", "wrenches");
+    private static final ResourceLocation QUARTZ_KNIFE = new ResourceLocation("ae2", "knife");
 
     public SCItemTagsGenerator(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<Block>> pBlockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(pOutput, pLookupProvider, pBlockTags, SpecialisedCells.MODID, existingFileHelper);
     }
 
-    //@Override
-    //protected @Nullable Path getPath(ResourceLocation id) {
-    //    if (id.equals(TOOLS_PAXELS.location()) || id.equals(TOOLS_WRENCHES.location()) || id.equals(WRENCHES.location())) {
-    //        return null;//created only so they don't error, return null so they don't write empty files
-    //    }
-    //    return super.getPath(id);
-    //}
-
     @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(TOOLS_PAXELS);
-        tag(TOOLS_WRENCHES);
-        tag(WRENCHES);
-
         tag(SCTags.ARMORY_CELL_STORABLE)
                 .addTags(
                         Tags.Items.ARMORS,
@@ -57,7 +46,8 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                         Items.LEATHER_HORSE_ARMOR,
                         Items.IRON_HORSE_ARMOR,
                         Items.GOLDEN_HORSE_ARMOR,
-                        Items.DIAMOND_HORSE_ARMOR
+                        Items.DIAMOND_HORSE_ARMOR,
+                        Items.ELYTRA
                 )
         ;
         tag(SCTags.TOOLS_CELL_STORABLE)
@@ -66,15 +56,23 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                         ItemTags.AXES,
                         ItemTags.PICKAXES,
                         ItemTags.SHOVELS,
-                        ItemTags.HOES,
-                        TOOLS_PAXELS,
-                        TOOLS_WRENCHES,
-                        WRENCHES
+                        ItemTags.HOES
                 )
                 .add(
                         Items.CARROT_ON_A_STICK,
                         Items.WARPED_FUNGUS_ON_A_STICK,
-                        Items.FLINT_AND_STEEL
-                );
+                        Items.FLINT_AND_STEEL,
+                        item(AEItemIds.ENTROPY_MANIPULATOR),
+                        item(AEItemIds.CHARGED_STAFF)
+                )
+                .addOptionalTag(TOOLS_PAXELS)
+                .addOptionalTag(TOOLS_WRENCHES)
+                .addOptionalTag(WRENCHES)
+                .addOptionalTag(QUARTZ_KNIFE)
+                ;
+    }
+
+    public static Item item(ResourceLocation location) {
+        return ForgeRegistries.ITEMS.getValue(location);
     }
 }

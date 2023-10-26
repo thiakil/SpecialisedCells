@@ -5,11 +5,26 @@
     "#minecraft:pickaxes",
     "#minecraft:shovels",
     "#minecraft:hoes",
-    "#forge:tools/paxels",
-    "#forge:tools/wrench",
-    "#forge:wrenches",
     "minecraft:carrot_on_a_stick",
     "minecraft:warped_fungus_on_a_stick",
-    "minecraft:flint_and_steel"
+    "minecraft:flint_and_steel",
+    "ae2:entropy_manipulator",
+    "ae2:charged_staff",
+    {
+      "id": "#forge:tools/paxels",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/wrench",
+      "required": false
+    },
+    {
+      "id": "#forge:wrenches",
+      "required": false
+    },
+    {
+      "id": "#ae2:knife",
+      "required": false
+    }
   ]
 }
