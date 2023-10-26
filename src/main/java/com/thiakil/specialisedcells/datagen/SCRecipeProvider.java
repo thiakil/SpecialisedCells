@@ -1,6 +1,7 @@
 package com.thiakil.specialisedcells.datagen;
 
 import appeng.api.ids.AEItemIds;
+import com.thiakil.specialisedcells.SCItems;
 import com.thiakil.specialisedcells.SpecialisedCells;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
@@ -24,7 +25,7 @@ public class SCRecipeProvider extends RecipeProvider {
         Item AE2_CELL_HOUSING = ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.ITEM_CELL_HOUSING).get();
         String hasHousingName = getHasName(AE2_CELL_HOUSING);
         InventoryChangeTrigger.TriggerInstance hasHousing = has(AE2_CELL_HOUSING);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SpecialisedCells.ARMORY_CELL_HOUSING.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_HOUSING.get())
                 .define('H', AE2_CELL_HOUSING)
                 .define('T', Items.GOLDEN_HELMET)
                 .define('L', Items.GOLDEN_CHESTPLATE)
@@ -36,7 +37,7 @@ public class SCRecipeProvider extends RecipeProvider {
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("armory_cell_housing"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SpecialisedCells.TOOLS_CELL_HOUSING.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SCItems.TOOLS_CELL_HOUSING.get())
                 .define('H', AE2_CELL_HOUSING)
                 .define('T', Items.GOLDEN_HOE)
                 .define('L', Items.GOLDEN_PICKAXE)
@@ -48,34 +49,34 @@ public class SCRecipeProvider extends RecipeProvider {
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_housing"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.ARMORY_CELL_1K.get())
-                .requires(SpecialisedCells.ARMORY_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_1K.get())
+                .requires(SCItems.ARMORY_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_1K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("armory_cell_1k"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.ARMORY_CELL_4K.get())
-                .requires(SpecialisedCells.ARMORY_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_4K.get())
+                .requires(SCItems.ARMORY_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_4K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("armory_cell_4k"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.ARMORY_CELL_16K.get())
-                .requires(SpecialisedCells.ARMORY_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_16K.get())
+                .requires(SCItems.ARMORY_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_16K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("armory_cell_16k"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.TOOLS_CELL_1K.get())
-                .requires(SpecialisedCells.TOOLS_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.TOOLS_CELL_1K.get())
+                .requires(SCItems.TOOLS_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_1K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_1k"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.TOOLS_CELL_4K.get())
-                .requires(SpecialisedCells.TOOLS_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.TOOLS_CELL_4K.get())
+                .requires(SCItems.TOOLS_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_4K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_4k"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SpecialisedCells.TOOLS_CELL_16K.get())
-                .requires(SpecialisedCells.TOOLS_CELL_HOUSING.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.TOOLS_CELL_16K.get())
+                .requires(SCItems.TOOLS_CELL_HOUSING.get())
                 .requires(ForgeRegistries.ITEMS.getDelegateOrThrow(AEItemIds.CELL_COMPONENT_16K).get())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("tools_cell_16k"));
