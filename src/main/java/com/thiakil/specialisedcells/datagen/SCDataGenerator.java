@@ -19,6 +19,7 @@ public class SCDataGenerator {
         BlockTagsProvider blockTagsProvider = gen.addProvider(event.includeServer(), new SCBlockTagsProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
         gen.addProvider(event.includeServer(), new SCItemTagsGenerator(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
         gen.addProvider(event.includeClient(), new SCLangProvider(output));
+        gen.addProvider(event.includeServer(), new SCRecipeProvider(output));
     }
 
 }

@@ -11,10 +11,12 @@ public class SCLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        addItem(SpecialisedCells.ARMORY_CELL_HOUSING, "Armory Cell Housing");
         addItem(SpecialisedCells.ARMORY_CELL_1K, "1k Armory Cell");
         addItem(SpecialisedCells.ARMORY_CELL_4K, "4k Armory Cell");
         addItem(SpecialisedCells.ARMORY_CELL_16K, "16k Armory Cell");
 
+        addItem(SpecialisedCells.TOOLS_CELL_HOUSING, "Tools Cell Housing");
         addItem(SpecialisedCells.TOOLS_CELL_1K, "1k Tools Cell");
         addItem(SpecialisedCells.TOOLS_CELL_4K, "4k Tools Cell");
         addItem(SpecialisedCells.TOOLS_CELL_16K, "16k Tools Cell");

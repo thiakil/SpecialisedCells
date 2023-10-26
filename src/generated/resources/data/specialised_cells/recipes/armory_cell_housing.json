@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:golden_boots"
+    },
+    "H": {
+      "item": "ae2:item_cell_housing"
+    },
+    "L": {
+      "item": "minecraft:golden_chestplate"
+    },
+    "R": {
+      "item": "minecraft:golden_leggings"
+    },
+    "T": {
+      "item": "minecraft:golden_helmet"
+    }
+  },
+  "pattern": [
+    " T ",
+    "LHR",
+    " B "
+  ],
+  "result": {
+    "item": "specialised_cells:armory_cell_housing"
+  },
+  "show_notification": true
+}
