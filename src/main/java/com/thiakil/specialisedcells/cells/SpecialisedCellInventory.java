@@ -49,6 +49,7 @@ public class SpecialisedCellInventory implements StorageCell {
     private final long maxItemsPerType; // max items per type, basically infinite unless there is a distribution card.
     private final boolean hasVoidUpgrade;
     private boolean isPersisted = true;
+    private int partitionListSize = 0;
 
     private SpecialisedCellInventory(ISpecialisedCellType cellType, ItemStack o, ISaveProvider container) {
         this.cellType = cellType;
@@ -74,6 +75,7 @@ public class SpecialisedCellInventory implements StorageCell {
 
         partitionListMode = (hasInverter ? IncludeExclude.BLACKLIST : IncludeExclude.WHITELIST);
         partitionList = builder.build();
+        partitionListSize = config.keySet().size();
 
         // Check for equal distribution card.
         if (upgrades.isInstalled(AEItems.EQUAL_DISTRIBUTION_CARD)) {
@@ -256,8 +258,10 @@ public class SpecialisedCellInventory implements StorageCell {
         return this.getTotalBytes() - this.getUsedBytes();
     }
 
-    //todo should this change when partitioned?
     public long getTotalItemTypes() {
+        if (this.isPreformatted() && this.partitionListMode == IncludeExclude.WHITELIST) {
+            return this.partitionListSize;
+        }
         return this.cellType.getTotalItemTypes();
     }
 
