@@ -42,8 +42,14 @@ public class SpecialisedCells
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     //public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> ARMORY_CELL_1K = ITEMS.register("armory_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.ARMORY_CELL_STORABLE) {
-    });
+    public static final RegistryObject<Item> ARMORY_CELL_1K = ITEMS.register("armory_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.ARMORY_CELL_STORABLE));
+    public static final RegistryObject<Item> ARMORY_CELL_4K = ITEMS.register("armory_cell_4k", () -> new ItemTagBasedCell(2, 32, 31, 4, SCTags.ARMORY_CELL_STORABLE));
+    public static final RegistryObject<Item> ARMORY_CELL_16K = ITEMS.register("armory_cell_16k", () -> new ItemTagBasedCell(2.5, 48, 31, 16, SCTags.ARMORY_CELL_STORABLE));
+
+    public static final RegistryObject<Item> TOOLS_CELL_1K = ITEMS.register("tools_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.TOOLS_CELL_STORABLE));
+    public static final RegistryObject<Item> TOOLS_CELL_4K = ITEMS.register("tools_cell_4k", () -> new ItemTagBasedCell(2, 32, 31, 4, SCTags.TOOLS_CELL_STORABLE));
+    public static final RegistryObject<Item> TOOLS_CELL_16K = ITEMS.register("tools_cell_16k", () -> new ItemTagBasedCell(2.5, 48, 31, 16, SCTags.TOOLS_CELL_STORABLE));
+
 
     public static final RegistryObject<CreativeModeTab> SPECIALISED_CELLS_TAB = CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)

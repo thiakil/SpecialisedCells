@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class ItemTagBasedCell extends ItemSpecialisedCell {
+public class ItemTagBasedCell extends ItemSpecialisedCell {
     protected final TagKey<Item> allowedTag;
 
     public ItemTagBasedCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag) {
