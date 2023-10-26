@@ -7,6 +7,9 @@
     "#minecraft:hoes",
     "#forge:tools/paxels",
     "#forge:tools/wrench",
-    "#forge:wrenches"
+    "#forge:wrenches",
+    "minecraft:carrot_on_a_stick",
+    "minecraft:warped_fungus_on_a_stick",
+    "minecraft:flint_and_steel"
   ]
 }

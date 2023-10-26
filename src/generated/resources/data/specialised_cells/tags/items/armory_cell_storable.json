@@ -5,6 +5,10 @@
     "#forge:tools/shields",
     "#forge:tools/bows",
     "#forge:tools/crossbows",
-    "#forge:tools/tridents"
+    "#forge:tools/tridents",
+    "minecraft:leather_horse_armor",
+    "minecraft:iron_horse_armor",
+    "minecraft:golden_horse_armor",
+    "minecraft:diamond_horse_armor"
   ]
 }

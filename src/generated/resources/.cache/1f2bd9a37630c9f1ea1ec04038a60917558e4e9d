@@ -1,3 +1,6 @@
-// 1.20.1	2023-10-25T22:26:24.1848085	Tags for minecraft:item mod id specialised_cells
-5a885f08161cb06f8d9d31af962a0d4022b70fcf data/specialised_cells/tags/items/armory_cell_storable.json
-5b5c4224dad47e092d2afbef0ef26968b774ed65 data/specialised_cells/tags/items/tools_cell_storable.json
+// 1.20.1	2023-10-26T20:34:44.8180838	Tags for minecraft:item mod id specialised_cells
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forge/tags/items/tools/paxels.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forge/tags/items/tools/wrench.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forge/tags/items/wrenches.json
+7eadc60fbfeaf5fd0ca23479fd08a53776586a09 data/specialised_cells/tags/items/armory_cell_storable.json
+bba0bdbdd2430a8409b8a02d56c3c9a0b1984f72 data/specialised_cells/tags/items/tools_cell_storable.json
