@@ -1,43 +1,43 @@
-
-Installation information
+Specialised Cells
 =======
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions at [github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+Specialised Cells is an addon mod for [Applied Energistics 2](https://github.com/AppliedEnergistics/Applied-Energistics-2), which adds some new storage cells to use for specific purposes.
 
-Once you have your clone, you can initialize your copy.
+The key benefit is that the types system works a bit differently in these cells.
 
-Setup Process:
---------
+There are some tradeoffs, however:
+ 
+- Bytes per type starts at 16 (like a standard 4K Cell)
+- Idle drain is slightly higher than a size-equivalent standard Cell
+- Item count per byte is halved (4 items per byte)
+- Item types are limited to 31 (unless otherwise noted)
 
-Step 1: Open your command-line and browse to the folder where you extracted cloned your copy of this repository to.
+## Armory Cell (1K, 4K, 16K)
+This cell stores only Armors (player and horse), weapons (Swords, Bows, Crossbows, and Tridents), and Elytra. This can be customised via the `specialised_cells:armory_cell_storable` tag.
 
-Step 2: You're left with a choice.
-If you prefer to use Eclipse:
-1. Run the following command: `gradlew genEclipseRuns` (`./gradlew genEclipseRuns` if you are on Mac/Linux)
-2. Open Eclipse, Import > Existing Gradle Project > Select Folder 
-   or run `gradlew eclipse` to generate the project.
+It can be partitioned further and will always act in Fuzzy Mode (ignoring damage).
 
-If you prefer to use IntelliJ:
-1. Open IDEA, and import project.
-2. Select your build.gradle file and have it import.
-3. Run the following command: `gradlew genIntellijRuns` (`./gradlew genIntellijRuns` if you are on Mac/Linux)
-4. Refresh the Gradle Project in IDEA if required.
+This cell counts only the **item** for the types system - this means that you can store 10 different Iron Swords with different damage levels, and it will only count as one type!
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can 
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+## Tools Cell (1K, 4K, 16K)
+This cell stores only "tools" - Axes, Pickaxes, Shovels, Hoes, Wrenches, Fishing Rods, Carrot/Warped Fungus on a Stick, Flint & Steel, AE2 Entropy Manipulator, AE2 Charged Staff, AE2 Quartz Knifes.  This can be customised via the `specialised_cells:tools_cell_storable` tag.
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license, if you do not agree with it you can change your mapping names to other crowdsourced names in your 
-build.gradle. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+It can be partitioned further and will always act in Fuzzy Mode (ignoring damage).
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+This cell counts only the **item** for the types system - this means that you can store 10 different Iron Pickaxes with different damage levels, and it will only count as one type!
+
+## Enchanted Book Cell (1K, 4K, 16K)
+This cell only stores Enchanted Books. However, the types are counted by **Enchantment type**. This means that, for instance, Power I and Power II will only use a single type. 
+
+It can store **63** different enchantment types. NB: compound enchantments count separately; a Book with Power and Unbreaking will use its own type and will not share a type with either part.
+
+
+# License
+
+* Specialised Cells
+    - (c) Thiakil
+    - [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+* Textures and Models
+    - (c) Thiakil
+    - (c) Based on standard cell textures by [Ridanisaurus Rid](https://github.com/Ridanisaurus/)
+    - [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%203.0-yellow.svg?style=flat-square)](https://creativecommons.org/licenses/by-nc-sa/3.0/)
