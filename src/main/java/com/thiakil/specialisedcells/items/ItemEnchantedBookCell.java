@@ -5,8 +5,10 @@ import net.minecraft.ResourceLocationException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -46,6 +48,11 @@ public class ItemEnchantedBookCell extends ItemSpecialisedCell{
             return enchantments.iterator().next();
         }
         return new CompositeEnchantments(enchantments);
+    }
+
+    @Override
+    public boolean isFoil(@NotNull ItemStack stack) {
+        return true;
     }
 
     private record CompositeEnchantments(Set<ResourceLocation> enchantmentIds){}
