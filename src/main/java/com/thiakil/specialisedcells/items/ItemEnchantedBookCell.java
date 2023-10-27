@@ -1,18 +1,25 @@
 package com.thiakil.specialisedcells.items;
 
 import appeng.api.stacks.AEItemKey;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class ItemEnchantedBookCell extends ItemSpecialisedCell{
     public ItemEnchantedBookCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes) {
         super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes);
@@ -29,6 +36,7 @@ public class ItemEnchantedBookCell extends ItemSpecialisedCell{
     }
 
     @Override
+    @Nullable
     public Object getPrimaryKey(AEItemKey what) {
         CompoundTag stackTag = what.getTag();
         if (stackTag == null) {
@@ -53,6 +61,11 @@ public class ItemEnchantedBookCell extends ItemSpecialisedCell{
     @Override
     public boolean isFoil(@NotNull ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        return Optional.empty();//no point when it's all books
     }
 
     private record CompositeEnchantments(Set<ResourceLocation> enchantmentIds){}

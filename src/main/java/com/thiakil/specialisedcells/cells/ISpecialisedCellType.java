@@ -5,6 +5,8 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.storage.cells.ICellWorkbenchItem;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 public interface ISpecialisedCellType extends ICellWorkbenchItem {
     double getIdleDrain();
     int getBytesPerType();
@@ -27,5 +29,6 @@ public interface ISpecialisedCellType extends ICellWorkbenchItem {
     }
 
     /** @return the type identifier for this cell's "type" tracking */
+    @Nullable
     Object getPrimaryKey(AEItemKey what);
 }
