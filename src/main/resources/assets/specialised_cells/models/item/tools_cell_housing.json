@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ae2:item/item_cell_housing",
-    "layer1": "minecraft:item/golden_pickaxe"
+    "layer0": "specialised_cells:item/tools_cell_housing"
   }
 }

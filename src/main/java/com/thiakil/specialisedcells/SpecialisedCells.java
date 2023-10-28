@@ -1,12 +1,17 @@
 package com.thiakil.specialisedcells;
 
 import appeng.api.storage.StorageCells;
+import appeng.core.definitions.AEItems;
+import appeng.init.client.InitItemColors;
+import appeng.items.storage.BasicStorageCell;
 import com.mojang.logging.LogUtils;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -84,6 +89,21 @@ public class SpecialisedCells
         {
             // Some client setup code
 
+        }
+
+        @SubscribeEvent
+        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+            event.register(BasicStorageCell::getColor,
+                    SCItems.ARMORY_CELL_1K.get(),
+                    SCItems.ARMORY_CELL_4K.get(),
+                    SCItems.ARMORY_CELL_16K.get(),
+                    SCItems.TOOLS_CELL_1K.get(),
+                    SCItems.TOOLS_CELL_4K.get(),
+                    SCItems.TOOLS_CELL_16K.get(),
+                    SCItems.ENCHANTED_BOOK_CELL_1K.get(),
+                    SCItems.ENCHANTED_BOOK_CELL_4K.get(),
+                    SCItems.ENCHANTED_BOOK_CELL_16K.get()
+            );
         }
     }
 }
