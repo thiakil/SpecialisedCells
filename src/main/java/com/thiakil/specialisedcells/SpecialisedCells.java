@@ -2,15 +2,19 @@ package com.thiakil.specialisedcells;
 
 import appeng.api.client.StorageCellModels;
 import appeng.api.storage.StorageCells;
+import appeng.api.upgrades.Upgrades;
 import appeng.core.definitions.AEItems;
+import appeng.core.localization.GuiText;
 import appeng.init.client.InitItemColors;
 import appeng.items.storage.BasicStorageCell;
 import com.mojang.logging.LogUtils;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
+import com.thiakil.specialisedcells.items.ItemEnchantedBookCell;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -26,6 +30,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SpecialisedCells.MODID)
@@ -72,6 +78,20 @@ public class SpecialisedCells
         event.enqueueWork(()->{
             StorageCells.addCellHandler(SpecialisedCellHandler.INSTANCE);
         });
+        String storageCellGroup = GuiText.StorageCells.getTranslationKey();
+        var itemCells = List.of(
+                SCItems.ARMORY_CELL_1K, SCItems.ARMORY_CELL_4K, SCItems.ARMORY_CELL_16K,
+                SCItems.TOOLS_CELL_1K, SCItems.TOOLS_CELL_4K, SCItems.TOOLS_CELL_16K,
+                SCItems.ENCHANTED_BOOK_CELL_1K, SCItems.ENCHANTED_BOOK_CELL_4K, SCItems.ENCHANTED_BOOK_CELL_16K
+        );
+        for (var itemCell : itemCells) {
+            Item cellItem = itemCell.get();
+            Upgrades.add(AEItems.EQUAL_DISTRIBUTION_CARD, cellItem, 1, storageCellGroup);
+            Upgrades.add(AEItems.VOID_CARD, cellItem, 1, storageCellGroup);
+            if (!(cellItem instanceof ItemEnchantedBookCell)) {
+                Upgrades.add(AEItems.INVERTER_CARD, cellItem, 1, storageCellGroup);
+            }
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

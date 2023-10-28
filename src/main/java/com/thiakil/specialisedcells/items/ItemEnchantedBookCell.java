@@ -1,6 +1,8 @@
 package com.thiakil.specialisedcells.items;
 
 import appeng.api.stacks.AEItemKey;
+import appeng.api.upgrades.IUpgradeInventory;
+import appeng.api.upgrades.UpgradeInventories;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.nbt.CompoundTag;
@@ -66,6 +68,11 @@ public class ItemEnchantedBookCell extends ItemSpecialisedCell{
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
         return Optional.empty();//no point when it's all books
+    }
+
+    @Override
+    public IUpgradeInventory getUpgrades(ItemStack stack) {
+        return UpgradeInventories.forItem(stack, 2);
     }
 
     private record CompositeEnchantments(Set<ResourceLocation> enchantmentIds){}
