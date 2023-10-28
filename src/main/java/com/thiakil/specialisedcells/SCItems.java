@@ -2,6 +2,7 @@ package com.thiakil.specialisedcells;
 
 import com.thiakil.specialisedcells.items.ItemEnchantedBookCell;
 import com.thiakil.specialisedcells.items.ItemTagBasedCell;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -38,6 +39,7 @@ public class SCItems {
     public static final RegistryObject<CreativeModeTab> SPECIALISED_CELLS_TAB = SpecialisedCells.CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ARMORY_CELL_1K.get().getDefaultInstance())
+            .title(Component.literal("Specialised Cells"))
             .displayItems((parameters, output) -> {
                 for (RegistryObject<Item> entry : ITEMS.getEntries()) {
                     output.accept(entry.get());
