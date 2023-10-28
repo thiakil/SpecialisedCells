@@ -30,7 +30,7 @@ public class ItemTagBasedCell extends ItemSpecialisedCell {
 
     @Override
     public ConfigInventory getConfigInventory(ItemStack is) {
-        return CellConfig.create(AEKeyType.items().filter(), is);
+        return CellConfig.create(what->AEKeyType.items().filter().matches(what) && this.isAllowed((AEItemKey) what), is);
     }
 
     public Object getPrimaryKey(AEItemKey what) {
