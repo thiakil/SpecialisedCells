@@ -1,5 +1,6 @@
 package com.thiakil.specialisedcells;
 
+import appeng.api.client.StorageCellModels;
 import appeng.api.storage.StorageCells;
 import appeng.core.definitions.AEItems;
 import appeng.init.client.InitItemColors;
@@ -8,6 +9,7 @@ import com.mojang.logging.LogUtils;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
@@ -88,7 +90,18 @@ public class SpecialisedCells
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             // Some client setup code
-
+            ResourceLocation ARMORY_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/armory_cell");
+            ResourceLocation TOOLS_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/tools_cell");
+            ResourceLocation EB_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/enchanted_cell");
+            StorageCellModels.registerModel(SCItems.ARMORY_CELL_1K.get(), ARMORY_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ARMORY_CELL_4K.get(), ARMORY_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ARMORY_CELL_16K.get(), ARMORY_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.TOOLS_CELL_1K.get(), TOOLS_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.TOOLS_CELL_4K.get(), TOOLS_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.TOOLS_CELL_16K.get(), TOOLS_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_1K.get(), EB_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_4K.get(), EB_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_16K.get(), EB_CELL_MODEL);
         }
 
         @SubscribeEvent

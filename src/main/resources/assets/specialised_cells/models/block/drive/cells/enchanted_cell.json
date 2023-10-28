@@ -1,0 +1,6 @@
+{
+  "parent": "ae2:block/drive/drive_cell",
+  "textures": {
+    "cell": "specialised_cells:block/drive/cells/enchanted_cell"
+  }
+}
