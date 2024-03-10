@@ -6,9 +6,5 @@
   "item.specialised_cells.enchanted_book_cell_16k": "16k ME Enchanted Book Cell",
   "item.specialised_cells.enchanted_book_cell_1k": "1k ME Enchanted Book Cell",
   "item.specialised_cells.enchanted_book_cell_4k": "4k ME Enchanted Book Cell",
-  "item.specialised_cells.enchanted_book_cell_housing": "Enchanted Book Cell Housing",
-  "item.specialised_cells.tools_cell_16k": "16k ME Tools Cell",
-  "item.specialised_cells.tools_cell_1k": "1k ME Tools Cell",
-  "item.specialised_cells.tools_cell_4k": "4k ME Tools Cell",
-  "item.specialised_cells.tools_cell_housing": "Tools Cell Housing"
+  "item.specialised_cells.enchanted_book_cell_housing": "Enchanted Book Cell Housing"
 }

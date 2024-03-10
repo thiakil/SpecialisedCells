@@ -9,10 +9,10 @@
       "item": "ae2:item_cell_housing"
     },
     "L": {
-      "item": "minecraft:golden_chestplate"
+      "item": "minecraft:golden_pickaxe"
     },
     "R": {
-      "item": "minecraft:golden_leggings"
+      "item": "minecraft:golden_sword"
     },
     "T": {
       "item": "minecraft:golden_helmet"
@@ -25,6 +25,5 @@
   ],
   "result": {
     "item": "specialised_cells:armory_cell_housing"
-  },
-  "show_notification": true
+  }
 }

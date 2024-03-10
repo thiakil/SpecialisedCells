@@ -9,6 +9,7 @@ import appeng.items.storage.BasicStorageCell;
 import com.mojang.logging.LogUtils;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import com.thiakil.specialisedcells.items.ItemEnchantedBookCell;
+import com.thiakil.specialisedcells.storage.StorageManager;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +24,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
@@ -45,6 +48,7 @@ public class SpecialisedCells
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     //public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
+    public static StorageManager STORAGE_MANAGER = new StorageManager();
 
     public SpecialisedCells(IEventBus modEventBus)
     {
@@ -74,7 +78,6 @@ public class SpecialisedCells
         String storageCellGroup = GuiText.StorageCells.getTranslationKey();
         var itemCells = List.of(
                 SCItems.ARMORY_CELL_1K, SCItems.ARMORY_CELL_4K, SCItems.ARMORY_CELL_16K,
-                SCItems.TOOLS_CELL_1K, SCItems.TOOLS_CELL_4K, SCItems.TOOLS_CELL_16K,
                 SCItems.ENCHANTED_BOOK_CELL_1K, SCItems.ENCHANTED_BOOK_CELL_4K, SCItems.ENCHANTED_BOOK_CELL_16K
         );
         for (var itemCell : itemCells) {
@@ -88,12 +91,17 @@ public class SpecialisedCells
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-    //@SubscribeEvent
-    //public void onServerStarting(ServerStartingEvent event)
-    //{
-    //    // Do something when the server starts
-    //
-    //}
+   @SubscribeEvent
+   public void onServerStarting(ServerStartingEvent event)
+   {
+       STORAGE_MANAGER = StorageManager.getInstance(event.getServer());
+   }
+
+    @SubscribeEvent
+    public void onServerStopping(ServerStoppingEvent event)
+    {
+        STORAGE_MANAGER = new StorageManager();
+    }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -109,9 +117,6 @@ public class SpecialisedCells
             StorageCellModels.registerModel(SCItems.ARMORY_CELL_1K.get(), ARMORY_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ARMORY_CELL_4K.get(), ARMORY_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ARMORY_CELL_16K.get(), ARMORY_CELL_MODEL);
-            StorageCellModels.registerModel(SCItems.TOOLS_CELL_1K.get(), TOOLS_CELL_MODEL);
-            StorageCellModels.registerModel(SCItems.TOOLS_CELL_4K.get(), TOOLS_CELL_MODEL);
-            StorageCellModels.registerModel(SCItems.TOOLS_CELL_16K.get(), TOOLS_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_1K.get(), EB_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_4K.get(), EB_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_16K.get(), EB_CELL_MODEL);
@@ -123,9 +128,6 @@ public class SpecialisedCells
                     SCItems.ARMORY_CELL_1K.get(),
                     SCItems.ARMORY_CELL_4K.get(),
                     SCItems.ARMORY_CELL_16K.get(),
-                    SCItems.TOOLS_CELL_1K.get(),
-                    SCItems.TOOLS_CELL_4K.get(),
-                    SCItems.TOOLS_CELL_16K.get(),
                     SCItems.ENCHANTED_BOOK_CELL_1K.get(),
                     SCItems.ENCHANTED_BOOK_CELL_4K.get(),
                     SCItems.ENCHANTED_BOOK_CELL_16K.get()

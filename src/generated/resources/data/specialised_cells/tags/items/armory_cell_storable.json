@@ -1,15 +1,32 @@
 {
   "values": [
     "#forge:armors",
-    "#minecraft:swords",
-    "#forge:tools/shields",
-    "#forge:tools/bows",
-    "#forge:tools/crossbows",
-    "#forge:tools/tridents",
+    "#forge:tools",
     "minecraft:leather_horse_armor",
     "minecraft:iron_horse_armor",
     "minecraft:golden_horse_armor",
     "minecraft:diamond_horse_armor",
-    "minecraft:elytra"
+    "minecraft:elytra",
+    "minecraft:carrot_on_a_stick",
+    "minecraft:warped_fungus_on_a_stick",
+    "minecraft:flint_and_steel",
+    "ae2:entropy_manipulator",
+    "ae2:charged_staff",
+    {
+      "id": "#forge:tools/paxels",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/wrench",
+      "required": false
+    },
+    {
+      "id": "#forge:wrenches",
+      "required": false
+    },
+    {
+      "id": "#ae2:knife",
+      "required": false
+    }
   ]
 }

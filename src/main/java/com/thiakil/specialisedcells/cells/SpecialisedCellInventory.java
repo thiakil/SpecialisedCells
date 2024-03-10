@@ -18,6 +18,9 @@ import appeng.core.definitions.AEItems;
 import appeng.items.contents.CellConfig;
 import appeng.util.ConfigInventory;
 import appeng.util.prioritylist.IPartitionList;
+import com.thiakil.specialisedcells.SpecialisedCells;
+import com.thiakil.specialisedcells.storage.DataStorage;
+import com.thiakil.specialisedcells.storage.StorageManager;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
@@ -28,13 +31,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class SpecialisedCellInventory implements StorageCell {
     private static final int MAX_ITEM_TYPES = 63;
-    private static final String ITEM_COUNT_TAG = "ic";
-    private static final String STACK_KEYS = "keys";
-    private static final String STACK_AMOUNTS = "amts";
-    private static final String STACK_PRIMARY_KEYS = "prikeys";
+    public static final String ITEM_COUNT_TAG = "ic";
+    public static final String STACK_KEYS = "keys";
+    public static final String STACK_AMOUNTS = "amts";
+    public static final String STACK_PRIMARY_KEYS = "prikeys";
     private static final AEKeyType KEY_TYPE = AEKeyType.items();
 
     private final ISaveProvider container;
@@ -46,8 +50,8 @@ public class SpecialisedCellInventory implements StorageCell {
     private Object2LongMap<Object> storedPrimaryKeys;
     private final ISpecialisedCellType cellType;
     private final ItemStack i;
-    private final long maxItemsPerType; // max items per type, basically infinite unless there is a distribution card.
-    private final boolean hasVoidUpgrade;
+    private long maxItemsPerType; // max items per type, basically infinite unless there is a distribution card.
+    private boolean hasVoidUpgrade;
     private boolean isPersisted = true;
     private int partitionListSize = 0;
 
@@ -57,11 +61,57 @@ public class SpecialisedCellInventory implements StorageCell {
 
         this.container = container;
         //todo store this count separately, when calculated by primary key
-        this.storedItemTypes = getTag().getShort(STACK_PRIMARY_KEYS);
-        this.storedItemCount = getTag().getLong(ITEM_COUNT_TAG);
         this.storedAmounts = null;
         this.storedPrimaryKeys = null;
 
+        this.storedItemTypes = getTag().getShort(STACK_PRIMARY_KEYS);
+        this.storedItemCount = getTag().getLong(ITEM_COUNT_TAG);
+        initData();
+
+        setupConfig();
+    }
+
+    private static StorageManager getStorageInstance() {
+        return SpecialisedCells.STORAGE_MANAGER;
+    }
+
+    private DataStorage getDiskStorage() {
+        if(getDiskUUID() != null)
+            return getStorageInstance().getOrCreateDisk(getDiskUUID());
+        else
+            return DataStorage.EMPTY;
+    }
+
+    private void initData() {
+        if(hasDiskUUID()) {
+           // this.storedItems = getDiskStorage().stackAmounts.length;
+            this.storedItemCount = getDiskStorage().itemCount;
+        }
+        else {
+            //this.storedItems = 0;
+            this.storedItemCount = 0;
+            getCellItems();
+        }
+    }
+
+    public boolean hasDiskUUID() {
+        return i.hasTag() && i.getOrCreateTag().contains(StorageManager.DISKUUID);
+    }
+
+    public static boolean hasDiskUUID(ItemStack disk) {
+        if(disk.getItem() instanceof ISpecialisedCellType) {
+            return disk.hasTag() && disk.getOrCreateTag().contains(StorageManager.DISKUUID);
+        }
+        return false;
+    }
+
+    public UUID getDiskUUID() {
+        if(hasDiskUUID())
+            return i.getOrCreateTag().getUUID(StorageManager.DISKUUID);
+        else return null;
+    }
+
+    private void setupConfig() {
         // Updates the partition list and mode based on installed upgrades and the configured filter.
         var builder = IPartitionList.builder();
 
@@ -131,9 +181,19 @@ public class SpecialisedCellInventory implements StorageCell {
         return this.storedAmounts;
     }
 
-    @Override
     public void persist() {
         if (this.isPersisted) {
+            return;
+        }
+
+        if (storedItemCount == 0) {
+            if (hasDiskUUID()) {
+                getStorageInstance().removeDisk(getDiskUUID());
+                getTag().remove(StorageManager.DISKUUID);
+                getTag().remove(ITEM_COUNT_TAG);
+                getTag().remove(STACK_PRIMARY_KEYS);
+                initData();
+            }
             return;
         }
 
@@ -148,28 +208,24 @@ public class SpecialisedCellInventory implements StorageCell {
 
             if (amount > 0) {
                 itemCount += amount;
-                keys.add(entry.getKey().toTag());
+                keys.add(entry.getKey().toTagGeneric());
                 amounts.add(amount);
             }
         }
 
-        this.storedItemTypes = (short) this.storedPrimaryKeys.size();
-
         if (keys.isEmpty()) {
-            getTag().remove(STACK_KEYS);
-            getTag().remove(STACK_AMOUNTS);
-            getTag().remove(STACK_PRIMARY_KEYS);
+            getStorageInstance().updateDisk(getDiskUUID(), new DataStorage());
         } else {
-            getTag().put(STACK_KEYS, keys);
-            getTag().putLongArray(STACK_AMOUNTS, amounts.toArray(new long[0]));
-            getTag().putShort(STACK_PRIMARY_KEYS, this.storedItemTypes);
+            getStorageInstance().modifyDisk(getDiskUUID(), keys, amounts.toArray(new long[0]), itemCount);
         }
 
         this.storedItemCount = itemCount;
         if (itemCount == 0) {
             getTag().remove(ITEM_COUNT_TAG);
+            getTag().remove(STACK_PRIMARY_KEYS);
         } else {
             getTag().putLong(ITEM_COUNT_TAG, itemCount);
+            getTag().putShort(STACK_PRIMARY_KEYS, this.storedItemTypes);
         }
 
         this.isPersisted = true;
@@ -195,8 +251,12 @@ public class SpecialisedCellInventory implements StorageCell {
     private void loadCellItems() {
         boolean corruptedTag = false;
 
-        var amounts = getTag().getLongArray(STACK_AMOUNTS);
-        var tags = getTag().getList(STACK_KEYS, Tag.TAG_COMPOUND);
+        if (!i.hasTag()) {
+            return;
+        }
+
+        var amounts = getDiskStorage().stackAmounts;
+        var tags = getDiskStorage().stackKeys;
         if (amounts.length != tags.size()) {
             AELog.warn("Loading storage cell with mismatched amounts/tags: %d != %d",
                     amounts.length, tags.size());
@@ -352,6 +412,11 @@ public class SpecialisedCellInventory implements StorageCell {
             if (remainingItemCount <= 0) {
                 return 0;
             }
+        }
+        if (!hasDiskUUID()) {
+            i.getOrCreateTag().putUUID(StorageManager.DISKUUID, UUID.randomUUID());
+            getStorageInstance().getOrCreateDisk(getDiskUUID());
+            loadCellItems();
         }
 
         // Apply max items per type

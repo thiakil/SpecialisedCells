@@ -16,11 +16,6 @@ import org.jetbrains.annotations.NotNull;
 public class SCItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, SpecialisedCells.MODID);
 
-    public static final DeferredHolder<Item, Item> TOOLS_CELL_HOUSING = ITEMS.register("tools_cell_housing", ()-> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TOOLS_CELL_16K = ITEMS.register("tools_cell_16k", () -> new ItemTagBasedCell(2.5, 48, 31, 16, SCTags.TOOLS_CELL_STORABLE));
-    public static final DeferredHolder<Item, Item> TOOLS_CELL_4K = ITEMS.register("tools_cell_4k", () -> new ItemTagBasedCell(2, 32, 31, 4, SCTags.TOOLS_CELL_STORABLE));
-    public static final DeferredHolder<Item, Item> TOOLS_CELL_1K = ITEMS.register("tools_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.TOOLS_CELL_STORABLE));
-
     public static final DeferredHolder<Item, Item> ARMORY_CELL_HOUSING = ITEMS.register("armory_cell_housing", ()-> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ARMORY_CELL_16K = ITEMS.register("armory_cell_16k", () -> new ItemTagBasedCell(2.5, 48, 31, 16, SCTags.ARMORY_CELL_STORABLE));
     public static final DeferredHolder<Item, Item> ARMORY_CELL_4K = ITEMS.register("armory_cell_4k", () -> new ItemTagBasedCell(2, 32, 31, 4, SCTags.ARMORY_CELL_STORABLE));

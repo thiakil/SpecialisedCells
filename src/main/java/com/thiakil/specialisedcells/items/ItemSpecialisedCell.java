@@ -64,8 +64,4 @@ public abstract class ItemSpecialisedCell extends Item implements ISpecialisedCe
         SpecialisedCellHandler.INSTANCE.addCellInformationToTooltip(stack, lines);
     }
 
-    @Override
-    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        return SpecialisedCellHandler.INSTANCE.getTooltipImage(stack);
-    }
 }

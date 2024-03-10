@@ -36,29 +36,14 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
         tag(SCTags.ARMORY_CELL_STORABLE)
                 .addTags(
                         Tags.Items.ARMORS,
-                        ItemTags.SWORDS,
-                        Tags.Items.TOOLS_SHIELDS,
-                        Tags.Items.TOOLS_BOWS,
-                        Tags.Items.TOOLS_CROSSBOWS,
-                        Tags.Items.TOOLS_TRIDENTS
+                        Tags.Items.TOOLS
                 )
                 .add(
                         Items.LEATHER_HORSE_ARMOR,
                         Items.IRON_HORSE_ARMOR,
                         Items.GOLDEN_HORSE_ARMOR,
                         Items.DIAMOND_HORSE_ARMOR,
-                        Items.ELYTRA
-                )
-        ;
-        tag(SCTags.TOOLS_CELL_STORABLE)
-                .addTags(
-                        Tags.Items.TOOLS_FISHING_RODS,
-                        ItemTags.AXES,
-                        ItemTags.PICKAXES,
-                        ItemTags.SHOVELS,
-                        ItemTags.HOES
-                )
-                .add(
+                        Items.ELYTRA,
                         Items.CARROT_ON_A_STICK,
                         Items.WARPED_FUNGUS_ON_A_STICK,
                         Items.FLINT_AND_STEEL,
@@ -69,7 +54,7 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                 .addOptionalTag(TOOLS_WRENCHES)
                 .addOptionalTag(WRENCHES)
                 .addOptionalTag(QUARTZ_KNIFE)
-                ;
+        ;
     }
 
     public static Item item(ResourceLocation location) {
