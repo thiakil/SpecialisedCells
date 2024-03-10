@@ -3,7 +3,7 @@ package com.thiakil.specialisedcells.datagen;
 import com.thiakil.specialisedcells.SCItems;
 import com.thiakil.specialisedcells.SpecialisedCells;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class SCLangProvider extends LanguageProvider {
     public SCLangProvider(PackOutput output) {

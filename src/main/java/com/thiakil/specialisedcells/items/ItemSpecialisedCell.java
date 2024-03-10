@@ -1,18 +1,15 @@
 package com.thiakil.specialisedcells.items;
 
-import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKeyType;
 import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
