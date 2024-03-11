@@ -223,6 +223,9 @@ public class SpecialisedCellInventory implements StorageCell {
         if (itemCount == 0) {
             getTag().remove(ITEM_COUNT_TAG);
             getTag().remove(STACK_PRIMARY_KEYS);
+            if (i.getTag() != null && i.getTag().isEmpty()) {
+                i.setTag(null);
+            }
         } else {
             getTag().putLong(ITEM_COUNT_TAG, itemCount);
             getTag().putShort(STACK_PRIMARY_KEYS, this.storedItemTypes);
@@ -480,5 +483,10 @@ public class SpecialisedCellInventory implements StorageCell {
 
     public static boolean isCell(ItemStack input) {
         return input.getItem() instanceof ISpecialisedCellType;
+    }
+
+    @Override
+    public boolean canFitInsideCell() {
+        return !hasDiskUUID();
     }
 }
