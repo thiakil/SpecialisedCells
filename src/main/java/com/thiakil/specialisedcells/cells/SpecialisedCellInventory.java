@@ -485,8 +485,8 @@ public class SpecialisedCellInventory implements StorageCell {
         return input.getItem() instanceof ISpecialisedCellType;
     }
 
-    @Override
-    public boolean canFitInsideCell() {
-        return !hasDiskUUID();
-    }
+    //@Override
+    //public boolean canFitInsideCell() {
+    //    return !hasDiskUUID();
+    //}
 }
