@@ -1,6 +1,11 @@
 package com.thiakil.specialisedcells.items;
 
+import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKeyType;
+import appeng.api.storage.AEKeySlotFilter;
+import appeng.helpers.externalstorage.GenericStackInv;
+import appeng.items.contents.CellConfig;
+import appeng.util.ConfigInventory;
 import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -15,6 +20,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -62,6 +68,32 @@ public abstract class ItemSpecialisedCell extends Item implements ISpecialisedCe
                                 List<Component> lines,
                                 TooltipFlag advancedTooltips) {
         SpecialisedCellHandler.INSTANCE.addCellInformationToTooltip(stack, lines);
+    }
+
+    public static ConfigInventory createConfigInventory(AEKeySlotFilter slotFilter, ItemStack is) {
+        var holder = new ConfigHolder(is);
+        holder.inv = new ConfigInventory(Set.of(AEKeyType.items()), slotFilter, GenericStackInv.Mode.CONFIG_TYPES, 63, holder::save, false){};
+        holder.load();
+        return holder.inv;
+    }
+
+    private static class ConfigHolder {
+        private final ItemStack stack;
+        private ConfigInventory inv;
+
+        public ConfigHolder(ItemStack stack) {
+            this.stack = stack;
+        }
+
+        public void load() {
+            if (stack.hasTag()) {
+                inv.readFromChildTag(stack.getOrCreateTag(), "list");
+            }
+        }
+
+        public void save() {
+            inv.writeToChildTag(stack.getOrCreateTag(), "list");
+        }
     }
 
 }
