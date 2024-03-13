@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "ae2:item_cell_housing"
+    },
+    {
+      "tag": "forge:raw_materials"
+    }
+  ],
+  "result": {
+    "item": "specialised_cells:ore_cell_housing"
+  }
+}

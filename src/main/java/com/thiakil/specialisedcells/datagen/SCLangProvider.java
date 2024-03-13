@@ -17,6 +17,12 @@ public class SCLangProvider extends LanguageProvider {
         addItem(SCItems.ARMORY_CELL_4K, "4k ME Armory Cell");
         addItem(SCItems.ARMORY_CELL_16K, "16k ME Armory Cell");
 
+        addItem(SCItems.ORE_CELL_HOUSING, "Ore Cell Housing");
+        addItem(SCItems.ORE_CELL_1K, "1k ME Ore Cell");
+        addItem(SCItems.ORE_CELL_4K, "4k ME Ore Cell");
+        addItem(SCItems.ORE_CELL_16K, "16k ME Ore Cell");
+        addItem(SCItems.ORE_CELL_64K, "64k ME Ore Cell");
+
         addItem(SCItems.ENCHANTED_BOOK_CELL_HOUSING, "Enchanted Book Cell Housing");
         addItem(SCItems.ENCHANTED_BOOK_CELL_1K, "1k ME Enchanted Book Cell");
         addItem(SCItems.ENCHANTED_BOOK_CELL_4K, "4k ME Enchanted Book Cell");

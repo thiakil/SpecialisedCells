@@ -1,0 +1,8 @@
+{
+  "values": [
+    "#forge:ores",
+    "#forge:raw_materials",
+    "#forge:storage_blocks/raw_materials",
+    "#forge:dusts"
+  ]
+}

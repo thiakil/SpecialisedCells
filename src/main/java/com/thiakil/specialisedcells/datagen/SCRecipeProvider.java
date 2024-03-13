@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
@@ -47,6 +48,12 @@ public class SCRecipeProvider extends RecipeProvider {
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("enchanted_book_cell_housing"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ORE_CELL_HOUSING.get())
+                .requires(AE2_CELL_HOUSING)
+                .requires(Tags.Items.RAW_MATERIALS)
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("ore_cell_housing"));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ARMORY_CELL_1K.get())
                 .requires(SCItems.ARMORY_CELL_HOUSING.get())
                 .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_1K).orElseThrow())
@@ -78,6 +85,27 @@ public class SCRecipeProvider extends RecipeProvider {
                 .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_16K).orElseThrow())
                 .unlockedBy(hasHousingName, hasHousing)
                 .save(pWriter, id("enchanted_book_cell_16k"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ORE_CELL_1K.get())
+                .requires(SCItems.ORE_CELL_HOUSING.get())
+                .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_1K).orElseThrow())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("ore_cell_1k"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ORE_CELL_4K.get())
+                .requires(SCItems.ORE_CELL_HOUSING.get())
+                .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_4K).orElseThrow())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("ore_cell_4k"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ORE_CELL_16K.get())
+                .requires(SCItems.ORE_CELL_HOUSING.get())
+                .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_16K).orElseThrow())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("ore_cell_16k"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, SCItems.ORE_CELL_64K.get())
+                .requires(SCItems.ORE_CELL_HOUSING.get())
+                .requires(BuiltInRegistries.ITEM.getOptional(AEItemIds.CELL_COMPONENT_64K).orElseThrow())
+                .unlockedBy(hasHousingName, hasHousing)
+                .save(pWriter, id("ore_cell_64k"));
     }
 
     static ResourceLocation id(String name) {

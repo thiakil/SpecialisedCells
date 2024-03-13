@@ -38,7 +38,7 @@ public class SpecialisedCells
     // Define mod id in a common place for everything to reference
     public static final String MODID = "specialised_cells";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -78,6 +78,7 @@ public class SpecialisedCells
         String storageCellGroup = GuiText.StorageCells.getTranslationKey();
         var itemCells = List.of(
                 SCItems.ARMORY_CELL_1K, SCItems.ARMORY_CELL_4K, SCItems.ARMORY_CELL_16K,
+                SCItems.ORE_CELL_1K, SCItems.ORE_CELL_4K, SCItems.ORE_CELL_16K, SCItems.ORE_CELL_64K,
                 SCItems.ENCHANTED_BOOK_CELL_1K, SCItems.ENCHANTED_BOOK_CELL_4K, SCItems.ENCHANTED_BOOK_CELL_16K
         );
         for (var itemCell : itemCells) {
@@ -112,7 +113,7 @@ public class SpecialisedCells
         {
             // Some client setup code
             ResourceLocation ARMORY_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/armory_cell");
-            ResourceLocation TOOLS_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/tools_cell");
+            ResourceLocation ORE_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/ore_cell");
             ResourceLocation EB_CELL_MODEL = new ResourceLocation(MODID, "block/drive/cells/enchanted_cell");
             StorageCellModels.registerModel(SCItems.ARMORY_CELL_1K.get(), ARMORY_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ARMORY_CELL_4K.get(), ARMORY_CELL_MODEL);
@@ -120,6 +121,10 @@ public class SpecialisedCells
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_1K.get(), EB_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_4K.get(), EB_CELL_MODEL);
             StorageCellModels.registerModel(SCItems.ENCHANTED_BOOK_CELL_16K.get(), EB_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ORE_CELL_1K.get(), ORE_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ORE_CELL_4K.get(), ORE_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ORE_CELL_16K.get(), ORE_CELL_MODEL);
+            StorageCellModels.registerModel(SCItems.ORE_CELL_64K.get(), ORE_CELL_MODEL);
         }
 
         @SubscribeEvent
@@ -130,7 +135,11 @@ public class SpecialisedCells
                     SCItems.ARMORY_CELL_16K.get(),
                     SCItems.ENCHANTED_BOOK_CELL_1K.get(),
                     SCItems.ENCHANTED_BOOK_CELL_4K.get(),
-                    SCItems.ENCHANTED_BOOK_CELL_16K.get()
+                    SCItems.ENCHANTED_BOOK_CELL_16K.get(),
+                    SCItems.ORE_CELL_1K.get(),
+                    SCItems.ORE_CELL_4K.get(),
+                    SCItems.ORE_CELL_16K.get(),
+                    SCItems.ORE_CELL_64K.get()
             );
         }
     }

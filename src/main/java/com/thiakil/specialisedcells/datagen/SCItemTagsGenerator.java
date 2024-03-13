@@ -8,7 +8,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +54,46 @@ public class SCItemTagsGenerator extends ItemTagsProvider {
                 .addOptionalTag(WRENCHES)
                 .addOptionalTag(QUARTZ_KNIFE)
         ;
+
+        tag(SCTags.ORE_CELL_STORABLE)
+                .addTags(
+                        Tags.Items.ORES,
+                        Tags.Items.RAW_MATERIALS,
+                        SCTags.STORAGE_BLOCKS_RAW_MATERIALS,
+                        Tags.Items.DUSTS
+                );
+
+        //copied from ElementalCraft and added to, thanks Sirttas!
+        tag(SCTags.STORAGE_BLOCKS_RAW_MATERIALS)
+                .addTags(Tags.Items.STORAGE_BLOCKS_RAW_COPPER, Tags.Items.STORAGE_BLOCKS_RAW_IRON, Tags.Items.STORAGE_BLOCKS_RAW_GOLD)
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_silver"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_lead"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_tin"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_zinc"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_aluminum"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_nickel"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_uranium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_osmium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_desh"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_calorite"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_ostrum"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_platinum"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_iesnium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_unobtainium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_crimson_iron"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_allthemodium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_vibranium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_iridium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_titanium"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_azure_silver"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_antimony"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_tungsten"))
+                .addOptionalTag(new ResourceLocation("forge", "storage_blocks/raw_bauxite"))
+                .addOptionalTag(new ResourceLocation("blue_skies", "storage_blocks/raw_aquite"))
+                .addOptionalTag(new ResourceLocation("blue_skies", "storage_blocks/raw_charoite"))
+                .addOptionalTag(new ResourceLocation("blue_skies", "storage_blocks/raw_falsite"))
+                .addOptionalTag(new ResourceLocation("blue_skies", "storage_blocks/raw_ventium"))
+                .addOptionalTag(new ResourceLocation("blue_skies", "storage_blocks/raw_horizonite"));
     }
 
     public static Item item(ResourceLocation location) {

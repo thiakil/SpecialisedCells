@@ -1,6 +1,6 @@
 {
   "parent": "ae2:block/drive/drive_cell",
   "textures": {
-    "cell": "specialised_cells:block/drive/cells/tools_cell"
+    "cell": "specialised_cells:block/drive/cells/ore_cell"
   }
 }

@@ -6,5 +6,10 @@
   "item.specialised_cells.enchanted_book_cell_16k": "16k ME Enchanted Book Cell",
   "item.specialised_cells.enchanted_book_cell_1k": "1k ME Enchanted Book Cell",
   "item.specialised_cells.enchanted_book_cell_4k": "4k ME Enchanted Book Cell",
-  "item.specialised_cells.enchanted_book_cell_housing": "Enchanted Book Cell Housing"
+  "item.specialised_cells.enchanted_book_cell_housing": "Enchanted Book Cell Housing",
+  "item.specialised_cells.ore_cell_16k": "16k ME Ore Cell",
+  "item.specialised_cells.ore_cell_1k": "1k ME Ore Cell",
+  "item.specialised_cells.ore_cell_4k": "4k ME Ore Cell",
+  "item.specialised_cells.ore_cell_64k": "64k ME Ore Cell",
+  "item.specialised_cells.ore_cell_housing": "Ore Cell Housing"
 }

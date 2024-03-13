@@ -1,2 +1,4 @@
-// 1.20.4	2024-03-10T18:07:55.4366503	Tags for minecraft:item mod id specialised_cells
+// 1.20.4	2024-03-13T18:36:38.5657355	Tags for minecraft:item mod id specialised_cells
+3985d81d2bf3a18b93c655de8cb826ab47d35e47 data/forge/tags/items/storage_blocks/raw_materials.json
 1d997efd5bb96a5b79ee8eb8cc9226d3b12319de data/specialised_cells/tags/items/armory_cell_storable.json
+7b7c1fdc57223a1a6cacd24f56e45cfc8b034e87 data/specialised_cells/tags/items/ore_cell_storable.json

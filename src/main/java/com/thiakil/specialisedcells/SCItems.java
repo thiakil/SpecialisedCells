@@ -1,6 +1,7 @@
 package com.thiakil.specialisedcells;
 
 import com.thiakil.specialisedcells.items.ItemEnchantedBookCell;
+import com.thiakil.specialisedcells.items.ItemOreCell;
 import com.thiakil.specialisedcells.items.ItemTagBasedCell;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -20,6 +21,12 @@ public class SCItems {
     public static final DeferredHolder<Item, Item> ARMORY_CELL_16K = ITEMS.register("armory_cell_16k", () -> new ItemTagBasedCell(2.5, 48, 31, 16, SCTags.ARMORY_CELL_STORABLE));
     public static final DeferredHolder<Item, Item> ARMORY_CELL_4K = ITEMS.register("armory_cell_4k", () -> new ItemTagBasedCell(2, 32, 31, 4, SCTags.ARMORY_CELL_STORABLE));
     public static final DeferredHolder<Item, Item> ARMORY_CELL_1K = ITEMS.register("armory_cell_1k", () -> new ItemTagBasedCell(1.5, 16, 31, 1, SCTags.ARMORY_CELL_STORABLE));
+
+    public static final DeferredHolder<Item, Item> ORE_CELL_HOUSING = ITEMS.register("ore_cell_housing", ()-> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ORE_CELL_64K = ITEMS.register("ore_cell_64k", () -> new ItemOreCell(2.5, 128, 63, 64, SCTags.ORE_CELL_STORABLE));
+    public static final DeferredHolder<Item, Item> ORE_CELL_16K = ITEMS.register("ore_cell_16k", () -> new ItemOreCell(2, 64, 63, 16, SCTags.ORE_CELL_STORABLE));
+    public static final DeferredHolder<Item, Item> ORE_CELL_4K = ITEMS.register("ore_cell_4k", () -> new ItemOreCell(1.5, 32, 63, 4, SCTags.ORE_CELL_STORABLE));
+    public static final DeferredHolder<Item, Item> ORE_CELL_1K = ITEMS.register("ore_cell_1k", () -> new ItemOreCell(1, 8, 63, 1, SCTags.ORE_CELL_STORABLE));
 
     public static final DeferredHolder<Item, Item> ENCHANTED_BOOK_CELL_HOUSING = ITEMS.register("enchanted_book_cell_housing", ()-> new Item(new Item.Properties()){
         @Override
