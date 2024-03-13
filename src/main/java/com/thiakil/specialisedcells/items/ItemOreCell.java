@@ -38,7 +38,7 @@ public class ItemOreCell extends ItemTagBasedCell {
                         .ifPresent(contents -> contents
                                 .forEach(holder -> {
                                     if (holder.isBound()) {
-                                        SpecialisedCells.LOGGER.info("{} = {}", holder.unwrapKey().map(ResourceKey::location).orElse(null), subTag.location());
+                                        //SpecialisedCells.LOGGER.info("{} = {}", holder.unwrapKey().map(ResourceKey::location).orElse(null), subTag.location());
                                         PRIMARY_KEY_CACHE.put(holder.value(), subTag.location());
                                     }
                                 })
