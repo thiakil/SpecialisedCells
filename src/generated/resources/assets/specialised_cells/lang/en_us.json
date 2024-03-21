@@ -11,5 +11,6 @@
   "item.specialised_cells.ore_cell_1k": "1k ME Ore Cell",
   "item.specialised_cells.ore_cell_4k": "4k ME Ore Cell",
   "item.specialised_cells.ore_cell_64k": "64k ME Ore Cell",
-  "item.specialised_cells.ore_cell_housing": "Ore Cell Housing"
+  "item.specialised_cells.ore_cell_housing": "Ore Cell Housing",
+  "specialised_cells.OnlyEmptyCellsCanBeDisassembled": "Only empty storage cells can be disassembled."
 }

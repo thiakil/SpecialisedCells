@@ -10,6 +10,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -18,8 +19,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class ItemTagBasedCell extends ItemSpecialisedCell {
     protected final TagKey<Item> allowedTag;
 
-    public ItemTagBasedCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag) {
-        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes);
+    public ItemTagBasedCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag, ItemLike coreItem, ItemLike housingItem) {
+        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes, coreItem, housingItem);
         this.allowedTag = allowedTag;
     }
 

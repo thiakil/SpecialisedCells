@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.Tags;
@@ -58,8 +59,8 @@ public class ItemOreCell extends ItemTagBasedCell {
         }
     }
 
-    public ItemOreCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag) {
-        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes, allowedTag);
+    public ItemOreCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, TagKey<Item> allowedTag, ItemLike coreItem, ItemLike housingItem) {
+        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes, allowedTag, coreItem, housingItem);
     }
 
     @Override

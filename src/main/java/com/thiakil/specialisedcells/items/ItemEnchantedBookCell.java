@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -23,8 +24,8 @@ import java.util.TreeSet;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class ItemEnchantedBookCell extends ItemSpecialisedCell{
-    public ItemEnchantedBookCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes) {
-        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes);
+    public ItemEnchantedBookCell(double idleDrain, int bytesPerType, int totalItemTypes, int totalKilobytes, ItemLike coreItem, ItemLike housingItem) {
+        super(idleDrain, bytesPerType, totalItemTypes, totalKilobytes, coreItem, housingItem);
     }
 
     @Override

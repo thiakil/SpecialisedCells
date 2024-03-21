@@ -1,6 +1,7 @@
 package com.thiakil.specialisedcells.datagen;
 
 import com.thiakil.specialisedcells.SCItems;
+import com.thiakil.specialisedcells.SCLang;
 import com.thiakil.specialisedcells.SpecialisedCells;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -27,5 +28,11 @@ public class SCLangProvider extends LanguageProvider {
         addItem(SCItems.ENCHANTED_BOOK_CELL_1K, "1k ME Enchanted Book Cell");
         addItem(SCItems.ENCHANTED_BOOK_CELL_4K, "4k ME Enchanted Book Cell");
         addItem(SCItems.ENCHANTED_BOOK_CELL_16K, "16k ME Enchanted Book Cell");
+
+        add(SCLang.OnlyEmptyCellsCanBeDisassembled, "Only empty storage cells can be disassembled.");
+    }
+
+    private void add(SCLang key, String value) {
+        add(key.getKey(), value);
     }
 }
