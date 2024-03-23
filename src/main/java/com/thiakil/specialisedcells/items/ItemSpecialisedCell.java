@@ -4,22 +4,18 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKeyType;
 import appeng.api.storage.AEKeySlotFilter;
 import appeng.api.storage.StorageCells;
-import appeng.core.localization.PlayerMessages;
-import appeng.helpers.externalstorage.GenericStackInv;
-import appeng.items.contents.CellConfig;
 import appeng.util.ConfigInventory;
-import appeng.util.InteractionUtil;
 import com.thiakil.specialisedcells.SCLang;
 import com.thiakil.specialisedcells.cells.ISpecialisedCellType;
 import com.thiakil.specialisedcells.cells.SpecialisedCellHandler;
+import com.thiakil.specialisedcells.cells.TagConfigInventory;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,8 +25,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -130,7 +125,14 @@ public abstract class ItemSpecialisedCell extends Item implements ISpecialisedCe
         return holder.inv;
     }
 
-    private static class ConfigHolder {
+    public static ConfigInventory createTagConfigInventory(AEKeySlotFilter slotFilter, ItemStack is, Function<Item, TagKey<Item>> configStackSupplier) {
+        var holder = new ConfigHolder(is);
+        holder.inv = new TagConfigInventory(AEKeyType.items(), (slot, what) -> (what instanceof AEItemKey itemKey && itemKey.getItem() instanceof ItemTagWrapper) || slotFilter.isAllowed(slot, what), 63, holder::save, configStackSupplier);
+        holder.load();
+        return holder.inv;
+    }
+
+    public static class ConfigHolder {
         private final ItemStack stack;
         private ConfigInventory inv;
 

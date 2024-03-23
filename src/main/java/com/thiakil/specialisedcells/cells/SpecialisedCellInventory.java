@@ -24,13 +24,19 @@ import com.thiakil.specialisedcells.storage.StorageManager;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 public class SpecialisedCellInventory implements StorageCell {
@@ -113,19 +119,34 @@ public class SpecialisedCellInventory implements StorageCell {
 
     private void setupConfig() {
         // Updates the partition list and mode based on installed upgrades and the configured filter.
-        var builder = IPartitionList.builder();
+
 
         var upgrades = getUpgradesInventory();
         var config = getConfigInventory();
 
         boolean hasInverter = upgrades.isInstalled(AEItems.INVERTER_CARD);
 
-        builder.addAll(config.keySet());
-        builder.fuzzyMode(FuzzyMode.IGNORE_ALL);//force fuzzy mode
+        var builder = IPartitionList.builder();
 
-        partitionListMode = (hasInverter ? IncludeExclude.BLACKLIST : IncludeExclude.WHITELIST);
+        if (config instanceof TagConfigInventory tagConfigInventory) {
+            TagConfigInventory.TagFilters tagFilters = tagConfigInventory.unwrapStacks();
+            builder.addAll(tagFilters.regularKeys());
+            for (TagKey<Item> tag : tagFilters.tags()) {
+                Optional<HolderSet.Named<Item>> optionalTag = BuiltInRegistries.ITEM.getTag(tag);
+                if (optionalTag.isPresent()) {
+                    for (Holder<Item> itemHolder : optionalTag.get()) {
+                        builder.add(AEItemKey.of(itemHolder.value()));
+                    }
+                }
+            }
+        } else {
+            builder.addAll(config.keySet());
+        }
+        builder.fuzzyMode(FuzzyMode.IGNORE_ALL);//force fuzzy mode
         partitionList = builder.build();
         partitionListSize = config.keySet().size();
+
+        partitionListMode = (hasInverter ? IncludeExclude.BLACKLIST : IncludeExclude.WHITELIST);
 
         // Check for equal distribution card.
         if (upgrades.isInstalled(AEItems.EQUAL_DISTRIBUTION_CARD)) {
@@ -403,9 +424,10 @@ public class SpecialisedCellInventory implements StorageCell {
     private long innerInsert(AEItemKey what, long amount, Actionable mode, IActionSource source) {
         var currentAmount = this.getCellItems().getLong(what);
         long remainingItemCount = this.getRemainingItemCount();
+        long storedPrimaryKeys = this.storedPrimaryKeys.getLong(cellType.getPrimaryKey(what));
 
         // Deduct the required storage for a new type if the type is new
-        if (currentAmount <= 0) {
+        if (storedPrimaryKeys <= 0) {
             if (!canHoldNewItem()) {
                 // No space for more types
                 return 0;
@@ -423,7 +445,7 @@ public class SpecialisedCellInventory implements StorageCell {
         }
 
         // Apply max items per type
-        remainingItemCount = Math.max(0, Math.min(this.maxItemsPerType - currentAmount, remainingItemCount));
+        remainingItemCount = Math.max(0, Math.min(this.maxItemsPerType - storedPrimaryKeys, remainingItemCount));
 
         if (amount > remainingItemCount) {
             amount = remainingItemCount;
@@ -440,7 +462,12 @@ public class SpecialisedCellInventory implements StorageCell {
 
     private void addPrimaryKeyCount(AEItemKey what, long amount) {
         Object primaryKey = this.cellType.getPrimaryKey(what);
-        this.storedPrimaryKeys.put(primaryKey, this.storedPrimaryKeys.getLong(primaryKey) + amount);
+        long value = this.storedPrimaryKeys.getLong(primaryKey) + amount;
+        if (value >= 1) {
+            this.storedPrimaryKeys.put(primaryKey, value);
+        } else {
+            this.storedPrimaryKeys.removeLong(primaryKey);
+        }
     }
 
     @Override

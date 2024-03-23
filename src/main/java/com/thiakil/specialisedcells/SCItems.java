@@ -4,6 +4,7 @@ import appeng.api.ids.AEItemIds;
 import com.thiakil.specialisedcells.items.ItemEnchantedBookCell;
 import com.thiakil.specialisedcells.items.ItemOreCell;
 import com.thiakil.specialisedcells.items.ItemTagBasedCell;
+import com.thiakil.specialisedcells.items.ItemTagWrapper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -48,12 +49,17 @@ public class SCItems {
     public static final DeferredItem<Item> ORE_CELL_16K = ITEMS.register("ore_cell_16k", () -> new ItemOreCell(2, 64, 63, 16, SCTags.ORE_CELL_STORABLE, CELL_COMPONENT_16K, ORE_CELL_HOUSING));
     public static final DeferredItem<Item> ORE_CELL_64K = ITEMS.register("ore_cell_64k", () -> new ItemOreCell(2.5, 128, 63, 64, SCTags.ORE_CELL_STORABLE, CELL_COMPONENT_64K, ORE_CELL_HOUSING));
 
+    public static final DeferredItem<ItemTagWrapper> TAG_WRAPPER = ITEMS.register("tag_wrapper", ItemTagWrapper::new);
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SPECIALISED_CELLS_TAB = SpecialisedCells.CREATIVE_MODE_TABS.register("specialised_cells", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ARMORY_CELL_1K.get().getDefaultInstance())
             .title(Component.literal("Specialised Cells"))
             .displayItems((parameters, output) -> {
                 for (DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
+                    if (entry == TAG_WRAPPER) {
+                        continue;
+                    }
                     output.accept(entry.get());
                 }
             }).build());

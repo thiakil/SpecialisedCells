@@ -30,6 +30,7 @@ public class SCLangProvider extends LanguageProvider {
         addItem(SCItems.ENCHANTED_BOOK_CELL_16K, "16k ME Enchanted Book Cell");
 
         add(SCLang.OnlyEmptyCellsCanBeDisassembled, "Only empty storage cells can be disassembled.");
+        add(SCLang.InvalidTag, "Invalid or missing Tag");
     }
 
     private void add(SCLang key, String value) {

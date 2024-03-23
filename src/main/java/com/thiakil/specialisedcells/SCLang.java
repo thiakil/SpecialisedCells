@@ -4,7 +4,8 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public enum SCLang {
-    OnlyEmptyCellsCanBeDisassembled;
+    OnlyEmptyCellsCanBeDisassembled,
+    InvalidTag;
 
     public Component component() {
         return Component.translatable(getKey());
