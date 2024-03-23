@@ -125,7 +125,7 @@ public abstract class ItemSpecialisedCell extends Item implements ISpecialisedCe
 
     public static ConfigInventory createConfigInventory(AEKeySlotFilter slotFilter, ItemStack is) {
         var holder = new ConfigHolder(is);
-        holder.inv = new ConfigInventory(Set.of(AEKeyType.items()), slotFilter, GenericStackInv.Mode.CONFIG_TYPES, 63, holder::save, false){};
+        holder.inv = ConfigInventory.configTypes(63).supportedType(AEKeyType.items()).slotFilter(slotFilter).changeListener(holder::save).build();
         holder.load();
         return holder.inv;
     }
